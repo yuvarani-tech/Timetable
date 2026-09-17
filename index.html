@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>B.Voc ERP - Smart Timetable Scheduler</title>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Core Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Sidebar Navigation -->
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <div class="logo-icon">
+        <i class="fa-solid fa-graduation-cap"></i>
+      </div>
+      <div class="logo-text">
+        <h2>B.Voc ERP</h2>
+        <p>Academic Management</p>
+      </div>
+    </div>
+    <nav class="sidebar-nav">
+      <ul>
+        <li>
+          <a href="#" class="nav-link active" data-target="dashboard-view">
+            <i class="fa-solid fa-chart-pie"></i>
+            <span>Dashboard</span>
+          </a>
+        </li>
+        <li>
+          <a href="#" class="nav-link" data-target="faculty-view">
+            <i class="fa-solid fa-users"></i>
+            <span>Faculties</span>
+          </a>
+        </li>
+        <li>
+          <a href="#" class="nav-link" data-target="subject-view">
+            <i class="fa-solid fa-book-open"></i>
+            <span>Subjects</span>
+          </a>
+        </li>
+        <li>
+          <a href="#" class="nav-link" data-target="assignment-view">
+            <i class="fa-solid fa-link"></i>
+            <span>Faculty Assignment</span>
+          </a>
+        </li>
+        <li>
+          <a href="#" class="nav-link" data-target="generate-view">
+            <i class="fa-solid fa-wand-magic-sparkles"></i>
+            <span>Generate Timetable</span>
+          </a>
+        </li>
+        <li>
+          <a href="#" class="nav-link" data-target="viewer-view">
+            <i class="fa-solid fa-calendar-days"></i>
+            <span>Timetable Viewer</span>
+          </a>
+        </li>
+        <li>
+          <a href="#" class="nav-link" data-target="faculty-search-view">
+            <i class="fa-solid fa-magnifying-glass-users"></i>
+            <span>Faculty Search</span>
+          </a>
+        </li>
+        <li>
+          <a href="#" class="nav-link" data-target="subject-search-view">
+            <i class="fa-solid fa-magnifying-glass font-small"></i>
+            <span>Subject Search</span>
+          </a>
+        </li>
+        <li>
+          <a href="#" class="nav-link" data-target="workload-view">
+            <i class="fa-solid fa-clock-rotate-left"></i>
+            <span>Workload Report</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+    <div class="sidebar-footer">
+      <p>Version 1.0.0</p>
+    </div>
+  </aside>
+
+  <!-- Main Container -->
+  <main class="main-content">
+    
+    <!-- Top Bar -->
+    <header class="top-bar">
+      <div class="header-title">
+        <h1 id="page-title">Dashboard</h1>
+        <p id="page-subtitle">Welcome back, Admin</p>
+      </div>
+      <div class="header-actions">
+        <div class="academic-year-badge">
+          <i class="fa-regular fa-calendar"></i>
+          <span id="current-badge-year">2026-2027</span> | <span id="current-badge-sem">Odd Sem</span>
+        </div>
+        <div class="user-profile">
+          <div class="user-avatar">AD</div>
+          <span class="user-name">Administrator</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- View Sections -->
+    <div class="content-wrapper">
+
+      <!-- 1. DASHBOARD VIEW -->
+      <section id="dashboard-view" class="view-section active">
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-icon" style="background: rgba(99, 102, 241, 0.1); color: var(--primary);">
+              <i class="fa-solid fa-user-tie"></i>
+            </div>
+            <div class="stat-details">
+              <span class="stat-label">Total Faculty</span>
+              <h3 id="stat-faculties">0</h3>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon" style="background: rgba(139, 92, 246, 0.1); color: var(--secondary);">
+              <i class="fa-solid fa-book"></i>
+            </div>
+            <div class="stat-details">
+              <span class="stat-label">Total Subjects</span>
+              <h3 id="stat-subjects">0</h3>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon" style="background: rgba(20, 184, 166, 0.1); color: var(--teal);">
+              <i class="fa-solid fa-chalkboard-user"></i>
+            </div>
+            <div class="stat-details">
+              <span class="stat-label">Total Classes</span>
+              <h3>3</h3>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon" style="background: rgba(245, 158, 11, 0.1); color: var(--accent);">
+              <i class="fa-solid fa-calendar-check"></i>
+            </div>
+            <div class="stat-details">
+              <span class="stat-label">Timetables Generated</span>
+              <h3 id="stat-timetables">No</h3>
+            </div>
+          </div>
+        </div>
+
+        <div class="dashboard-actions-card">
+          <div class="card-header">
+            <h3>Quick Actions</h3>
+            <p>Access shortcuts directly from the control dashboard</p>
+          </div>
+          <div class="actions-grid">
+            <button class="action-btn" id="quick-add-faculty">
+              <i class="fa-solid fa-user-plus"></i>
+              <span>Add Faculty</span>
+            </button>
+            <button class="action-btn" id="quick-add-subject">
+              <i class="fa-solid fa-folder-plus"></i>
+              <span>Add Subject</span>
+            </button>
+            <button class="action-btn" id="quick-assignment">
+              <i class="fa-solid fa-link"></i>
+              <span>Faculty Assignment</span>
+            </button>
+            <button class="action-btn primary-action" id="quick-generate">
+              <i class="fa-solid fa-wand-magic-sparkles"></i>
+              <span>Generate Timetable</span>
+            </button>
+            <button class="action-btn accent-action" id="quick-pdf">
+              <i class="fa-solid fa-file-pdf"></i>
+              <span>Download PDF</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="alert-banner" id="status-banner">
+          <div class="alert-icon">
+            <i class="fa-solid fa-circle-info"></i>
+          </div>
+          <div class="alert-content">
+            <h4>System Ready</h4>
+            <p id="system-status-msg">Pre-populated default B.Voc Faculty, Subjects and Assignments are loaded. Navigate to "Generate Timetable" to build schedule.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 2. FACULTY VIEW -->
+      <section id="faculty-view" class="view-section">
+        <div class="card">
+          <div class="card-header-flex">
+            <div>
+              <h3>Faculty Registry</h3>
+              <p>Manage college professors and lecturers</p>
+            </div>
+            <button class="btn btn-primary" id="btn-add-faculty">
+              <i class="fa-solid fa-plus"></i> Add Faculty
+            </button>
+          </div>
+          <div class="table-container">
+            <table id="faculty-table">
+              <thead>
+                <tr>
+                  <th>Faculty Code</th>
+                  <th>Faculty Name</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="faculty-table-body">
+                <!-- Injected via JavaScript -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- 3. SUBJECT VIEW -->
+      <section id="subject-view" class="view-section">
+        <div class="card">
+          <div class="card-header-flex">
+            <div>
+              <h3>Subject Syllabus</h3>
+              <p>Manage curriculum theory and lab courses per year</p>
+            </div>
+            <button class="btn btn-primary" id="btn-add-subject">
+              <i class="fa-solid fa-plus"></i> Add Subject
+            </button>
+          </div>
+          <div class="table-container">
+            <table id="subject-table">
+              <thead>
+                <tr>
+                  <th>Code</th>
+                  <th>Subject Name</th>
+                  <th>Year / Class</th>
+                  <th>Weekly Hours</th>
+                  <th>Type</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="subject-table-body">
+                <!-- Injected via JavaScript -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- 4. ASSIGNMENT VIEW -->
+      <section id="assignment-view" class="view-section">
+        <div class="card">
+          <div class="card-header-flex">
+            <div>
+              <h3>Faculty-Subject Assignments</h3>
+              <p>Map faculties to specific theory/lab subjects</p>
+            </div>
+            <button class="btn btn-primary" id="btn-add-assignment">
+              <i class="fa-solid fa-link"></i> Add Assignment
+            </button>
+          </div>
+          <div class="table-container">
+            <table id="assignment-table">
+              <thead>
+                <tr>
+                  <th>Subject Code</th>
+                  <th>Subject Name</th>
+                  <th>Year / Class</th>
+                  <th>Subject Type</th>
+                  <th>Assigned Faculty</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="assignment-table-body">
+                <!-- Injected via JavaScript -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- 5. GENERATE TIMETABLE VIEW -->
+      <section id="generate-view" class="view-section">
+        <div class="card max-w-600">
+          <div class="card-header">
+            <h3>Timetable Configuration</h3>
+            <p>Set semester settings and start the scheduler algorithm</p>
+          </div>
+          <form id="generate-form">
+            <div class="form-group">
+              <label for="input-semester">Academic Semester *</label>
+              <select id="input-semester" class="form-control" required>
+                <option value="Odd Semester" selected>Odd Semester</option>
+                <option value="Even Semester">Even Semester</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="input-acad-year">Academic Year *</label>
+              <input type="text" id="input-acad-year" class="form-control" placeholder="e.g. 2026-2027" value="2026-2027" required>
+            </div>
+            
+            <div class="info-box-rules">
+              <h5><i class="fa-solid fa-shield-halved"></i> Active Scheduling Constraints</h5>
+              <ul>
+                <li><strong>No Faculty Clash:</strong> Teachers cannot be in 2 classes in the same period.</li>
+                <li><strong>Lab Allocation:</strong> Before break runs P1+P2+P3 (3 hrs); After break runs P4+P5 (2 hrs).</li>
+                <li><strong>Faculty Workload:</strong> Maximum 4 periods/day per lecturer.</li>
+                <li><strong>Balanced Distribution:</strong> Spreads subject slots throughout the A-F Day cycle.</li>
+              </ul>
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-full-width" id="btn-trigger-generation">
+              <i class="fa-solid fa-wand-magic-sparkles"></i> Generate Timetables
+            </button>
+          </form>
+          
+          <div id="generation-result-box" class="generation-result-box hidden">
+            <!-- Output logs or success status -->
+          </div>
+        </div>
+      </section>
+
+      <!-- 6. TIMETABLE VIEWER VIEW -->
+      <section id="viewer-view" class="view-section">
+        <div class="viewer-controls-card">
+          <div class="viewer-flex-container">
+            <div class="class-selector">
+              <label for="view-class-select">Select B.Voc Year:</label>
+              <select id="view-class-select" class="form-control inline-control">
+                <option value="I B.Voc SD & SA" selected>I B.Voc SD & SA</option>
+                <option value="II B.Voc SD & SA">II B.Voc SD & SA</option>
+                <option value="III B.Voc SD & SA">III B.Voc SD & SA</option>
+              </select>
+            </div>
+            <div class="viewer-actions">
+              <button class="btn btn-accent" id="btn-download-pdf">
+                <i class="fa-solid fa-file-pdf"></i> Download PDF (Current Class)
+              </button>
+              <button class="btn btn-primary" id="btn-download-all-pdf">
+                <i class="fa-solid fa-download"></i> Download Full Report (PDF)
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Timetable Print Block -->
+        <div class="print-container" id="timetable-print-block">
+          
+          <!-- ERP Header block required exactly as specified -->
+          <div class="erp-timetable-header" id="timetable-header-block">
+            <div class="header-main-title">CLASS TIME TABLE</div>
+            <div class="header-metadata-grid">
+              <div><strong>Department:</strong> B.Voc Software Development and System Administration</div>
+              <div><strong>Programme:</strong> B.Voc SD & SA</div>
+              <div><strong>Semester:</strong> <span id="hdr-semester">Odd Semester</span></div>
+              <div><strong>Academic Year:</strong> <span id="hdr-acad-year">2026-2027</span></div>
+              <div><strong>Class:</strong> <span id="hdr-class-name">I B.Voc SD & SA</span></div>
+            </div>
+          </div>
+
+          <!-- Dynamic Grid Table -->
+          <div class="table-container print-no-scroll">
+            <table class="timetable-grid" id="timetable-grid-table">
+              <thead>
+                <tr>
+                  <th>Day Order</th>
+                  <th>Period 1</th>
+                  <th>Period 2</th>
+                  <th>Period 3</th>
+                  <th class="break-column">BREAK</th>
+                  <th>Period 4</th>
+                  <th>Period 5</th>
+                </tr>
+              </thead>
+              <tbody id="timetable-grid-body">
+                <!-- Injected via JavaScript -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- 7. FACULTY SEARCH VIEW -->
+      <section id="faculty-search-view" class="view-section">
+        <div class="card">
+          <div class="card-header">
+            <h3>Search Faculty Schedule</h3>
+            <p>Select a lecturer to view their complete weekly timetable profile</p>
+          </div>
+          <div class="search-input-wrapper">
+            <div class="search-field-group">
+              <label for="search-faculty-select">Select Faculty:</label>
+              <select id="search-faculty-select" class="form-control">
+                <!-- Injected via JavaScript -->
+              </select>
+            </div>
+          </div>
+
+          <!-- Faculty Schedule Display -->
+          <div class="search-result-container hidden" id="faculty-search-result">
+            <div class="result-header">
+              <h4 id="faculty-search-title">Schedule for SB</h4>
+              <p>Clash-free weekly assignments across classes</p>
+            </div>
+            <div class="table-container">
+              <table class="timetable-grid">
+                <thead>
+                  <tr>
+                    <th>Day Order</th>
+                    <th>Period 1</th>
+                    <th>Period 2</th>
+                    <th>Period 3</th>
+                    <th class="break-column">BREAK</th>
+                    <th>Period 4</th>
+                    <th>Period 5</th>
+                  </tr>
+                </thead>
+                <tbody id="faculty-search-body">
+                  <!-- Injected via JavaScript -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 8. SUBJECT SEARCH VIEW -->
+      <section id="subject-search-view" class="view-section">
+        <div class="card">
+          <div class="card-header">
+            <h3>Search Subject Schedule</h3>
+            <p>Select a subject to locate all its scheduled periods across classes</p>
+          </div>
+          <div class="search-input-wrapper">
+            <div class="search-field-group">
+              <label for="search-subject-select">Select Subject:</label>
+              <select id="search-subject-select" class="form-control">
+                <!-- Injected via JavaScript -->
+              </select>
+            </div>
+          </div>
+
+          <!-- Subject Schedule Display -->
+          <div class="search-result-container hidden" id="subject-search-result">
+            <div class="result-header">
+              <h4 id="subject-search-title">Schedule for PHP</h4>
+              <p>All scheduled periods and classrooms</p>
+            </div>
+            <div class="table-container">
+              <table class="timetable-grid">
+                <thead>
+                  <tr>
+                    <th>Day Order</th>
+                    <th>Period 1</th>
+                    <th>Period 2</th>
+                    <th>Period 3</th>
+                    <th class="break-column">BREAK</th>
+                    <th>Period 4</th>
+                    <th>Period 5</th>
+                  </tr>
+                </thead>
+                <tbody id="subject-search-body">
+                  <!-- Injected via JavaScript -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 9. WORKLOAD REPORT VIEW -->
+      <section id="workload-view" class="view-section">
+        <div class="card">
+          <div class="card-header-flex">
+            <div>
+              <h3>Faculty Workload Analysis</h3>
+              <p>Automatically computed weekly lecturing hours from generated schedules</p>
+            </div>
+            <button class="btn btn-accent" id="btn-print-workload">
+              <i class="fa-solid fa-print"></i> Print Workload Report
+            </button>
+          </div>
+          
+          <div class="print-container" id="workload-print-block">
+            <!-- ERP Header for Workload Report -->
+            <div class="erp-timetable-header workload-header-only">
+              <div class="header-main-title">FACULTY WORKLOAD REPORT</div>
+              <div class="header-metadata-grid">
+                <div><strong>Department:</strong> B.Voc Software Development and System Administration</div>
+                <div><strong>Programme:</strong> B.Voc SD & SA</div>
+                <div><strong>Semester:</strong> <span id="wl-semester">Odd Semester</span></div>
+                <div><strong>Academic Year:</strong> <span id="wl-acad-year">2026-2027</span></div>
+              </div>
+            </div>
+
+            <div class="table-container print-no-scroll">
+              <table id="workload-table">
+                <thead>
+                  <tr>
+                    <th>Faculty Code</th>
+                    <th>Faculty Name</th>
+                    <th>Assigned Subjects (Weekly target hours)</th>
+                    <th>Total Scheduled Weekly Hours</th>
+                    <th>Workload Status</th>
+                  </tr>
+                </thead>
+                <tbody id="workload-table-body">
+                  <!-- Injected via JavaScript -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- ================= MODALS ================= -->
+
+  <!-- Faculty CRUD Modal -->
+  <div class="modal-overlay" id="faculty-modal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 id="faculty-modal-title">Add Faculty</h3>
+        <button class="modal-close" id="close-faculty-modal"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <form id="faculty-form">
+        <input type="hidden" id="faculty-edit-index">
+        <div class="form-group">
+          <label for="faculty-code">Faculty Code (Unique, e.g., SB) *</label>
+          <input type="text" id="faculty-code" class="form-control" placeholder="e.g. SB" required>
+        </div>
+        <div class="form-group">
+          <label for="faculty-name">Faculty Name *</label>
+          <input type="text" id="faculty-name" class="form-control" placeholder="e.g. Prof. S. Bharathi" required>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" id="btn-cancel-faculty">Cancel</button>
+          <button type="submit" class="btn btn-primary">Save Faculty</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Subject CRUD Modal -->
+  <div class="modal-overlay" id="subject-modal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 id="subject-modal-title">Add Subject</h3>
+        <button class="modal-close" id="close-subject-modal"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <form id="subject-form">
+        <input type="hidden" id="subject-edit-index">
+        <div class="form-group">
+          <label for="subject-code">Subject Code (Unique) *</label>
+          <input type="text" id="subject-code" class="form-control" placeholder="e.g. BVoc-PHP" required>
+        </div>
+        <div class="form-group">
+          <label for="subject-name">Subject Name *</label>
+          <input type="text" id="subject-name" class="form-control" placeholder="e.g. Server Side Web Tech - PHP" required>
+        </div>
+        <div class="form-group">
+          <label for="subject-year">Class Year *</label>
+          <select id="subject-year" class="form-control" required>
+            <option value="I B.Voc SD & SA">I B.Voc SD & SA</option>
+            <option value="II B.Voc SD & SA">II B.Voc SD & SA</option>
+            <option value="III B.Voc SD & SA">III B.Voc SD & SA</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="subject-hours">Weekly Contact Hours *</label>
+          <input type="number" id="subject-hours" class="form-control" min="1" max="20" placeholder="e.g. 5" required>
+        </div>
+        <div class="form-group">
+          <label for="subject-type">Course Type *</label>
+          <select id="subject-type" class="form-control" required>
+            <option value="Theory">Theory</option>
+            <option value="Lab">Lab</option>
+          </select>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" id="btn-cancel-subject">Cancel</button>
+          <button type="submit" class="btn btn-primary">Save Subject</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Assignment CRUD Modal -->
+  <div class="modal-overlay" id="assignment-modal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 id="assignment-modal-title">Assign Faculty to Subject</h3>
+        <button class="modal-close" id="close-assignment-modal"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <form id="assignment-form">
+        <div class="form-group">
+          <label for="assign-subject">Select Subject *</label>
+          <select id="assign-subject" class="form-control" required>
+            <!-- Filled dynamically -->
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="assign-faculty">Select Faculty to Assign *</label>
+          <select id="assign-faculty" class="form-control" required>
+            <!-- Filled dynamically -->
+          </select>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" id="btn-cancel-assignment">Cancel</button>
+          <button type="submit" class="btn btn-primary">Save Assignment</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- hidden printing nodes for building PDF multi-page or combined formatting -->
+  <div id="pdf-rendering-temp" style="position: absolute; left: -9999px; top: -9999px;"></div>
+
+  <!-- External CDNs for PDF Export -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+  <!-- Application Scripts -->
+  <script src="scheduler.js"></script>
+  <script src="pdf-helper.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
